@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 use App\User;
-use App\Http\Resources\UserCollection;
+use App\Http\Resources\User as UserResource;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -22,7 +23,5 @@ use App\Http\Resources\UserCollection;
 
 
 Route::get('/users', function () {
-    return new UserCollection(User::all());
+    return new UserResource(User::all());
 });
-
-Route::post('/users', 'UserCollection@store');
