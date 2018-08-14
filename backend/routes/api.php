@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Http\Resources\User as UserResource;
 
+use App\Http\Middleware\Auth;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,7 @@ use App\Http\Resources\User as UserResource;
 Route::group(['prefix'=>'/'], function () {
     Route::get('/users', function () {
         return User::all();
-    });
+    })->middleware(Auth::class);
 
     Route::get('/user/{id}', function ($id) {
         return User::find($id);
