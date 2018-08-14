@@ -1,13 +1,23 @@
 
-export const clients = (state = { clients: [] }, action) => {
+const stateInitial = {
+  clients: {
+    name: "Patatin",
+    last_name: "Patatan"
+  }
+}
+
+export const clients = (state = stateInitial, action) => {
   switch (action.type) {
     case 'ALL_CLIENTS':
-      return {
-        state = {
-          clients: [...state.clients],
-        }
+      state = {
+        clients: [...state.clients],
       }
-    default:
-      return state;
+      break
+    case 'CREATE_CLIENT':
+      state = {
+        clients: [...state.clients, action.payload],
+      }
+      break
   }
+  return state;
 }

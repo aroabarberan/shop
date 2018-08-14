@@ -1,8 +1,10 @@
 import React from "react"
+import { connect } from "react-redux";
 import { Button, Paper, Modal, withStyles } from '@material-ui/core';
 import ClientForm from "../containers/ClientForm";
 import AddIcon from '@material-ui/icons/Add';
 import PropTypes from 'prop-types';
+import { allClient, createClient } from '../actions/clientActions'
 
 
 function getModalStyle() {
@@ -18,10 +20,13 @@ function getModalStyle() {
 
 
 class AddClient extends React.Component {
-  state = {
-    clients: [],
-    open: false,
-  };
+  constructor(props) {
+    super(props)
+    this.state = {
+      clients: this.props.clients,
+      open: false,
+    };
+  }
 
   handleOpen = () => {
     this.setState({ open: true })
@@ -32,31 +37,23 @@ class AddClient extends React.Component {
   };
 
   render() {
-    const { clients } = this.state;
     const { classes } = this.props
 
     return (
       <div>
-        <div className={classes.button_add}>
+        <div>
           <Button onClick={this.handleOpen} variant="fab" color="primary" aria-label="Add" className={classes.button}>
             <AddIcon />
           </Button>
         </div>
         <Modal open={this.state.open} onClose={this.handleClose}>
           <div style={getModalStyle()} className={classes.paper}>
-            <ClientForm />
+            <ClientForm/>
           </div>
         </Modal>
-        <div>
-          {clients.map((client, index) => (
-            <Paper key={index} className={classes.root} elevation={1}>
-              <p>Name: {client.name}</p>
-              <p>Last Name: {client.last_name}</p>
-            </Paper>
-          ))}
-        </div>
       </div>
-    );
+
+    )
   }
 }
 
@@ -66,14 +63,11 @@ const styles = theme => ({
     width: theme.spacing.unit * 50,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[5],
-    padding: theme.spacing.unit * 4,
-  },
-
-  button_add: {
-    paddingTop: 100,
   },
 
   button: {
+    position: 'absolute',
+    marginTop: 750,
     margin: theme.spacing.unit,
   },
 })
@@ -82,4 +76,21 @@ AddClient.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles, { withTheme: true })(AddClient);
+const mapStateToProps = (state) => {
+  return {
+    clients: state.clients
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    allClient: () => {
+      dispatch(allClient())
+    },
+    createClient: client => {
+      dispatch(createClient(client))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles, { withTheme: true })(AddClient));

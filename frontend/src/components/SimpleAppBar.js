@@ -1,6 +1,7 @@
 import React from "react"
 import { AppBar, Toolbar, Typography, withStyles } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import AddClient from "../components/AddClient";
 
 
 const SimpleAppBar = props => (
@@ -11,6 +12,9 @@ const SimpleAppBar = props => (
             Clients
           </Typography>
         </Toolbar>
+        <div>
+        <AddClient />
+        </div>
       </AppBar>
     </div>
 )

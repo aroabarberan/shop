@@ -2,9 +2,9 @@
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Client;
 use App\Http\Resources\User as UserResource;
 
-use App\Http\Middleware\Auth;
 
 
 /*
@@ -26,7 +26,7 @@ use App\Http\Middleware\Auth;
 Route::group(['prefix'=>'/'], function () {
     Route::get('/users', function () {
         return User::all();
-    })->middleware(Auth::class);
+    })->middleware('auth');
 
     Route::get('/user/{id}', function ($id) {
         return User::find($id);
@@ -50,6 +50,37 @@ Route::group(['prefix'=>'/'], function () {
         User::find($id)->delete();
         return 204;
     });
+
+});
+
+
+Route::group(['prefix'=>'/'], function () {
+    Route::get('/clients', function () {
+        return Client::all();
+    });
+
+    // Route::get('/user/{id}', function ($id) {
+    //     return User::find($id);
+    // });
+
+    // Route::post('/users', function(Request $request) {
+    //     $user = new User;
+    //     $user->name = $request['name'];
+    //     $user->email = $request['email'];
+    //     $user->password = $request['password'];
+    //     $user->save();
+    // });
+    // //TODO
+    // Route::put('/users/{id}', function(Request $request, $id) {
+
+    //     $user = User::find($id);
+    //     $user->update($request->all());
+    // });
+
+    // Route::delete('/user/{id}', function($id) {
+    //     User::find($id)->delete();
+    //     return 204;
+    // });
 
 });
 
