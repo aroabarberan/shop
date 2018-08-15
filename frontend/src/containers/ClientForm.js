@@ -22,7 +22,7 @@ class ClientForm extends React.Component {
     evt.preventDefault();
     const { name, last_name } = this.state;
     this.setState(({ clients }) => ({ clients: [...clients, { name, last_name }] }));
-    this.props.createClient({name, last_name})
+    () => this.props.createClient({name, last_name})
   };
 
   handleChange = evt => {

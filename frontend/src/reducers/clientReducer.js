@@ -1,9 +1,14 @@
 
 const stateInitial = {
-  clients: {
-    name: "Patatin",
-    last_name: "Patatan"
-  }
+  clients: [
+    {
+      name: "Patatin",
+      last_name: "Patatan"
+    }, {
+      name: "Menganito",
+      last_name: "Fulanito"
+    }
+  ]
 }
 
 export const clients = (state = stateInitial, action) => {

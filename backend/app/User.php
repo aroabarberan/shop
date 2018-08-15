@@ -7,10 +7,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, Notifiable;
+    use Notifiable;
 
     public function __construct(){
-        $this->middleware('auth');
     }
 
     /**
